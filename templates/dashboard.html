@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }} </a>.
+                </div>
+            {% endif %}
+        {% endwith %}
+
+<h1 class="title"> Welcome {{ login }}! This is your dashboard.</h1>
+
+<div  id="passwords">
+<table  id="passlist">
+    <colgroup>
+        <col>
+        <col>
+        <col>
+        <col id="last-column">
+      </colgroup>
+    <tr>
+        <th id="website">Website</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th id = "column-show"></th>
+    </tr>
+    {% with data=data %}
+        {% for row in data %}
+        <tr>
+            <th>{{ row.site_name }}</th>
+            <th>{{ row.username }} </th>
+            <th class="hidden-password"> ****** </th>
+            
+            <th><button type="button" class="btn btn-dark btn-sm" id="show-{{row.id}}" onclick="show('{{ row.id }}')">Show</button>
+
+                
+                <script>
+                    function show(){
+                        // #TODO
+                        // var id = 
+                    }
+                    // var index = document.get
+                </script>
+                
+                
+            </th>
+        </tr>
+        {% endfor %}
+</table>
+    {% endwith %}
+</div>
+
+
+
+{% endblock %}

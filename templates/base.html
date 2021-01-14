@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>PassPocket</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+        <!-- <script src="jquery-3.3.1.min.js"></script> -->
+        
+    </head>
+
+    <body>
+        {% block navbar %}
+        <nav class="navbar navbar-expand-lg  justify-content-end navbar-dark bg-dark">
+            <div class="d-flex flex-grow-1">
+                <!-- <a class="navbar-brand abs" >PassPocket</a> -->
+                <!-- <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNav"> -->
+                    <a class="navbar-brand" >PassPocket</a> 
+                    <ul class="navbar-nav ml-auto">
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('main.dashboard')}}">Dashboard</a>
+                        </li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.add_password') }}">Add new password</a>
+                        </li>
+                        {% endif %}
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
+                        </li> -->
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                        </li>
+                        {% endif %}
+                        {% if not current_user.is_authenticated %}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('auth.signup')}}">Signup</a>
+                        </li>
+                        {% endif %}
+                        {% if not current_user.is_authenticated %}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('auth.login')}}">Log in</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                <!-- </div> -->
+            </div>
+        </nav>
+        {% endblock %}
+    
+                        <!-- <div id="navbarMenuHeroA" class="navbar-menu">
+                            <div class="navbar-brand">
+                                <a href="{{ url_for('main.index') }}" class="navbar-item " >
+                                    Home
+                                </a>
+                                <a href="{{ url_for('main.add_password') }}" class="navbar-item">
+                                    Add new password
+                                </a>
+                                <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                                    Profile
+                                </a>
+                                <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                                    Login
+                                </a>
+                                <a href="{{ url_for('auth.signup') }}" class="navbar-item" >
+                                    Sign Up
+                                </a>
+                                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                                    Logout
+                                </a>
+                            </div>
+                        </div> -->
+
+        <div class="content-body">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+            <!-- </div>
+            </div>
+        </section> -->
+    
+    
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="column is-4 is-offset-4">
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }} </a>.
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="/add" style="max-width:360px;margin:auto;">
+            <div class="form-control">
+                <h1 class="h3 mb-3 font-weight-normal">Add a new password</h1>
+                <div class="mb-3">
+                    <input class="form-control" type="text" name="site_name" placeholder="Website" autofocus="">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="text" name="username" placeholder="Username" autofocus="">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="password" name="password" placeholder="Your Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
