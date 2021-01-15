@@ -12,7 +12,6 @@
 }
 .navbar-brand
     {
-        /* position: ; */
         padding-left: 10px;
     }
 
@@ -22,9 +21,6 @@ html, body {
 } 
 
 .content-body {
-    /* margin: 0 auto; */
-    /* padding: 25px; */
-    /* position: absolute; */
     display: flex;
     justify-content: center;
     margin-top: 50px;
@@ -48,54 +44,15 @@ html, body {
 }
 
 #passlist{
-     /* margin-left: auto; */
-    /* margin-right: auto;  */
-    /* position: absolute; */
-    /* top: 50%; */
-    /* left: 50%; */
-    /* margin-right: -50%; */
-    /* transform: translate(-50%, -50%); */
-    /* background-color: blueviolet; */
     table-layout: fixed;
     width: 700px;
     
 }
 
 #last-column{
-    width:54px;
+    width:100px;
 }
-
-
-/* div{
-    display: inline-block
-} */
 
 tr {
     padding-top: 10px;;
 }
-
-/* 
-.link-unstyled {
-  &,
-  &:visited,
-  &:hover,
-  &:active,
-  &:focus,
-  &:active:hover {
-    font-style: inherit;
-    color: inherit;
-    background-color: transparent;
-    font-size: inherit;
-    text-decoration: none;
-    font-variant: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    font-family: inherit;
-    border-radius: inherit;
-    border: inherit;
-    outline: inherit;
-    box-shadow: inherit;
-    padding: inherit;
-    vertical-align: inherit;
-  }
-} */

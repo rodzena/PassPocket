@@ -24,33 +24,44 @@
         <th>Username</th>
         <th>Password</th>
         <th id = "column-show"></th>
+        
+        <th class ="form" >
+            <div class="input-group mb-3">
+                <form method="POST" action="/master">
+                    <input type="text" class="form-control" type="password" name="master_password" placeholder="Your Master Password" aria-describedby="button-addon2">
+                    <input type="submit" value="Ok" name="sumbit">
+                    <!-- <button class="btn btn-outline-secondary" id="button-addon2" value="master_password" name = "submit" type="submit" >Ok</button> -->
+                </form>
+            </div>
+        </th>
     </tr>
+    
     {% with data=data %}
         {% for row in data %}
         <tr>
             <th>{{ row.site_name }}</th>
             <th>{{ row.username }} </th>
-            <th class="hidden-password"> ****** </th>
-            
-            <th><button type="button" class="btn btn-dark btn-sm" id="show-{{row.id}}" onclick="show('{{ row.id }}')">Show</button>
 
-                
-                <script>
-                    function show(){
-                        // #TODO
-                        // var id = 
-                    }
-                    // var index = document.get
-                </script>
-                
-                
+            {% if show == True  %}
+                {% if row.id|float ==  id|float %} 
+                 <th class="shown password">{{ pass_unhashed }}</th>
+                 {% else %}
+                 <th class="hidden-password"> ******  </th>
+                {% endif %}
+            {% endif %}
+
+            {% if show != True %}
+                <th class="hidden-password"> ******  </th>
+            {% endif %}
+                <th class ="form" > <form method="POST" action="/">
+                    <input type="hidden" name="id" id="id-{{row.id}}" value="{{ row.id }}">
+                    <button type="submit"></button></th> 
+                    <!-- zmienić button na input albo ogarnąć WTForms -->
+                </form></th>
             </th>
         </tr>
         {% endfor %}
 </table>
     {% endwith %}
 </div>
-
-
-
 {% endblock %}

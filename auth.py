@@ -1,36 +1,49 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash  
+# from flask_limiter import Limiter
 from .model import User
 from . import db
 from flask_login import login_user, logout_user, login_required
 import time 
+# from .__init__ import limiter
 
 auth = Blueprint('auth', __name__)
+
 
 @auth.route('/login')
 def login():
     return render_template('login.html')
 
 @auth.route('/login', methods=['POST'])
+# @limiter.limit("1/second", error_message='chill!')
 def login_post():
     #login code
+    if 'new' not in session:
+        login_attempt = 0
+        session['new'] = False
+    # session['attempt'] += 1
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
+    session['master'] = False
+    session['show'] = False
 
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
-        flash('Login failed. Try again.')
+        # login_attempt += 1
+        flash('Login failed. Try again. Remaining attempts: ')
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)    
     # time.sleep(3) --commented out for now, it's annoying
 
-    return redirect(url_for('main.dashboard'))
+    return redirect(url_for('main.index'))
 
 @auth.route('/logout')
 def logout():
+    # session['master']=False
+    
     logout_user()
     flash('You have been logged out successfully.')
     return redirect(url_for('main.index'))

@@ -1,14 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 
 
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    
-    app.config['SECRET_KEY'] = 'asdfghjkl;'
+    app.secret_key = 'asdfghjkl'
+    limiter = Limiter(app, key_func=get_remote_address)
+
+    # app.config['SECRET_KEY'] = 'asdfghjkl;'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
@@ -23,6 +28,9 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    # @limiter.limit("1/minute")
+    
+
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
@@ -33,3 +41,5 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
+
