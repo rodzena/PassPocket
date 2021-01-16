@@ -1,19 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-
+from datetime import timedelta
+import os
 
 
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = 'asdfghjkl'
-    limiter = Limiter(app, key_func=get_remote_address)
-
-    # app.config['SECRET_KEY'] = 'asdfghjkl;'
+    app.secret_key = os.urandom(8)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
@@ -21,6 +17,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+    app.permanent_session_lifetime = timedelta(minutes=20)
 
     from .model import User
     
@@ -28,15 +25,9 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    # @limiter.limit("1/minute")
-    
-
-
-    # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
-    # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 

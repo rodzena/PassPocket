@@ -17,16 +17,13 @@
 
 html, body {
     min-height: 100%;
-    background-color: #878E99;
+    background-color: #C7CCD1;
 } 
 
 .content-body {
     display: flex;
     justify-content: center;
     margin-top: 50px;
-
-    
-    
 }
 
 #passwords {
@@ -36,11 +33,14 @@ html, body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
-    background-color: #D3D6D9	;
+    background-color: #F4F5F6	;
     display: inline-block;
     position: fixed;
     padding: 10px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
+    max-height: 400px;
+    overflow-y: scroll;
+    
 }
 
 #passlist{

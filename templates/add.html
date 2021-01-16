@@ -8,7 +8,7 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="notification is-danger">
-                    {{ messages[0] }} </a>.
+                    {{ messages[0] }} </a>
                 </div>
             {% endif %}
         {% endwith %}
@@ -24,7 +24,11 @@
                 <div class="mb-3">
                     <input class="form-control" type="password" name="password" placeholder="Your Password">
                 </div>
+                <div class="mb-3">
+                    <input class="form-control" type="password" name="master_password" placeholder="Your Master Password">
+                </div>
                 <button type="submit" class="btn btn-primary">Add</button>
+                <a href = "{{ url_for('main.index') }}"> (Cancel) </a>
             </div>
         </form>
     </div>

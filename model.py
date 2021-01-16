@@ -6,12 +6,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique = True)
     login = db.Column(db.String(1000), unique = True)
     password = db.Column(db.String(100))
+    incorrect_attempts = db.Column(db.Integer, default=0)
     
-
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     site_name = db.Column(db.String(100))
     username = db.Column(db.String(100))
     password = db.Column(db.String(100))
     user = db.Column(db.String(100))
-
+    hash = db.Column(db.String(100))
