@@ -15,11 +15,6 @@
             <div class="d-flex flex-grow-1">
                     <a class="navbar-brand" >PassPocket</a> 
                     <ul class="navbar-nav ml-auto">
-                        <!-- {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('main.index')}}">Dashboard</a>
-                        </li>
-                        {% endif %} -->
                         {% if current_user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('main.add_password') }}">Add new password</a>

@@ -1,8 +1,6 @@
 .pass{
-    /* visibility: none; */
     font-weight: bolder;
 }
-
 
 * {
     text-decoration: none}
@@ -27,8 +25,6 @@ html, body {
 }
 
 #passwords {
-    /* width:3000px; */
-    /* align-self: center; */
     align-content: center;
     margin-left: auto;
     margin-right: auto;
@@ -37,16 +33,13 @@ html, body {
     display: inline-block;
     position: fixed;
     padding: 10px;
-    /* border-radius: 15px; */
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: scroll;
-    
 }
 
 #passlist{
     table-layout: fixed;
-    width: 700px;
-    
+    width: 700px; 
 }
 
 #last-column{

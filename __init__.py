@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from datetime import timedelta
 import os
 
-
 db = SQLAlchemy()
 
 def create_app():

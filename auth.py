@@ -5,64 +5,34 @@ from . import db
 from flask_login import login_user, logout_user, login_required
 from datetime import timedelta
 import time 
-# from .__init__ import limiter
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login')
 def login():
     return render_template('login.html')
 
 @auth.route('/login', methods=['POST'])
-# @limiter.limit("1/second", error_message='chill!')
 def login_post():
-    #login code
-    # if 'new' not in session:
-    #     login_attempt = 0
-    #     session['new'] = False
-    # session['attempt'] += 1
-    # if 'attempts' not in session:
-    #     session['attempts'] = 5
-    # session['attempts'] += 1
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    prohibited = ['<', '>','/','-','=','#',  ]
-
-    # any_email = any()
-    # session['attempts'] = 0
-    # session['attempts'] = 5
     session['is_master'] = False
     session['show'] = False
 
     user = User.query.filter_by(email=email).first()
-    
-
-    # if not user:
         
-    
     if user:
-        print('jest! user!')
-        # if check_password_hash(user.password, password):
-        #     print('jest! dobrze!')
-        #     user.incorrect_attempts = 0
-        #     db.session.commit()
-        #     login_user(user=user, remember=remember)
         if user.incorrect_attempts >= 5:
             flash('You\'ve exceeded the loggin attempt limit of 5. Your account has been blocked.') 
             return redirect(url_for('auth.login'))
-        elif not check_password_hash(user.password, password): #niepoprawne hasło
+        elif not check_password_hash(user.password, password): 
             user.incorrect_attempts += 1
             db.session.commit()
             flash('Login failed. Try again.')
             return redirect(url_for('auth.login'))     
-        # elif user.incorrect_attempts >= 5:  #może i poprawne hasło ale za dużo prób logowania było.
-        #     flash('You\'ve exceeded the loggin attempt limit of 5. Your account has been blocked.') 
-        #     return redirect(url_for('auth.login'))
         else:
-            print('jest! dobrze!')
             user.incorrect_attempts = 0
             db.session.commit()
             login_user(user=user, remember=remember)
@@ -73,7 +43,6 @@ def login_post():
 
 @auth.route('/logout')
 def logout():
-    # session['master']=False
     session['attempts'] = 5
     session['is_master']=False
     session['master_pass'] = None
@@ -87,7 +56,6 @@ def signup():
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    #validate and add user
     email = request.form.get('email')
     login = request.form.get('login')
     password = request.form.get('password')
@@ -97,8 +65,9 @@ def signup_post():
         flash('Email already registered')
         return redirect(url_for('auth.signup'))
 
-    #add entropy check here #TODO
-    if len(password) < 8:
+    dig = any(char.isdigit() for char in password)
+
+    if len(password) < 8 or dig != True:
         flash('Password too weak. Try using a more secure password.')
         return redirect(url_for('auth.signup'))
 
